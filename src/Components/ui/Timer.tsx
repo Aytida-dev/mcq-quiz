@@ -20,8 +20,8 @@ export default function Timer({
 
   useEffect(() => {
     if (time === 0) {
-      next();
       setTime(60);
+      next();
     }
   }, [time]);
 
@@ -30,5 +30,9 @@ export default function Timer({
     console.log("ran");
   }, [index]);
 
-  return <div>{time}</div>;
+  return (
+    <div className="border rounded-full w-10 h-10 flex justify-center items-center text-xl font-bold">
+      {time}
+    </div>
+  );
 }

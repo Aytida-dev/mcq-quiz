@@ -11,7 +11,7 @@ export default function ProgressBar({ progress }: { progress: number }) {
     message = "You did great";
   }
   return (
-    <div className="h-2 w-full bg-gray-700 rounded-full">
+    <div className="h-4 w-full bg-gray-700 rounded-full">
       <div
         className="h-full rounded-full transition-all duration-500 ease-in-out"
         style={{

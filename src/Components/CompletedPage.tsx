@@ -28,7 +28,7 @@ export default function CompletedPage({
   return (
     <div className="m-auto h-2/3 w-full lg:h-1/2 lg:w-1/2 lg:border border-white text-white p-20 ">
       <div className="text-white flex flex-col justify-between h-full items-center">
-        <h1 className="text-3xl">Quiz Completed</h1>
+        <h1 className="text-3xl ">Quiz Completed</h1>
         {/*progress bar */}
         <ProgressBar progress={score / totalScore} />
         <h2 className="text-2xl flex flex-col items-center gap-5">
