@@ -87,7 +87,7 @@ const QuizPage = () => {
         </button>
       </div>
       <div id="timer">
-        <Timer next={() => nextHandler()} />
+        <Timer next={() => nextHandler()} index={index} />
         <div>
           <ProgressBar progress={(index + 1) / questions.length} />
           <span>

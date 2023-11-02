@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function Timer({ next }: { next: () => void }) {
+export default function Timer({
+  next,
+  index,
+}: {
+  next: () => void;
+  index: number;
+}) {
   const [time, setTime] = useState(60);
 
   useEffect(() => {
@@ -15,9 +21,14 @@ export default function Timer({ next }: { next: () => void }) {
   useEffect(() => {
     if (time === 0) {
       next();
-      setTime(5);
+      setTime(60);
     }
   }, [time]);
+
+  useEffect(() => {
+    setTime(60);
+    console.log("ran");
+  }, [index]);
 
   return <div>{time}</div>;
 }

@@ -35,10 +35,10 @@ export default function CompletedPage({
           <span>
             Score : {score}/{totalScore}
           </span>
-          <span>{message}</span>
-          <span>
-            Time Taken : {minutes} : {seconds} seconds
+          <span className="font-mono">
+            {minutes} min : {seconds} sec
           </span>
+          <span>{message}</span>
         </h2>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/3 text-xl flex justify-center items-center "
