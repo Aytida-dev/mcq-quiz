@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import getQuestions from "../questions.json";
 import CompletedPage from "./CompletedPage";
+import Timer from "./ui/Timer";
+import ProgressBar from "./ui/ProgessBar";
 
 type questionType = {
   question: string;
@@ -11,9 +13,9 @@ type questionType = {
 const QuizPage = () => {
   const [index, setIndex] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const scoreRef = useRef<number>(0);
-
   const [questions, setQuestions] = useState<questionType[]>([]);
+  const scoreRef = useRef<number>(0);
+  const timeRef = useRef<number>(0);
 
   useEffect(() => {
     function shuffleArray(array: questionType[]) {
@@ -25,6 +27,7 @@ const QuizPage = () => {
       return array;
     }
     setQuestions(shuffleArray(getQuestions));
+    timeRef.current = Date.now();
   }, []);
 
   function nextHandler() {
@@ -32,13 +35,19 @@ const QuizPage = () => {
     if (questions[index].answer === selectedOption) {
       scoreRef.current++;
     }
-
+    if (index === questions.length - 1) {
+      timeRef.current = Date.now() - timeRef.current;
+    }
     setSelectedOption("");
   }
 
-  if (index === 10) {
+  if (index === questions.length) {
     return (
-      <CompletedPage score={scoreRef.current} totalScore={questions.length} />
+      <CompletedPage
+        score={scoreRef.current}
+        totalScore={questions.length}
+        timeTaken={timeRef.current}
+      />
     );
   }
 
@@ -47,7 +56,7 @@ const QuizPage = () => {
   }
 
   return (
-    <div className="m-auto h-2/4 lg:h-1/2 lg:w-1/2 lg:border border-white text-white p-1 lg:p-20 flex flex-col justify-between ">
+    <div className="m-auto h-2/4 lg:h-2/3 lg:w-1/2 lg:border border-white text-white p-1 lg:p-20 flex flex-col justify-between ">
       <div id="title" className="text-2xl my-4">
         <span>Q.no {index + 1}.</span> {questions[index].question}
       </div>
@@ -76,6 +85,15 @@ const QuizPage = () => {
         >
           {index === questions.length - 1 ? "Submit" : "Next"}
         </button>
+      </div>
+      <div id="timer">
+        <Timer next={() => nextHandler()} />
+        <div>
+          <ProgressBar progress={(index + 1) / questions.length} />
+          <span>
+            Attempting : {index + 1} / {questions.length}{" "}
+          </span>
+        </div>
       </div>
     </div>
   );

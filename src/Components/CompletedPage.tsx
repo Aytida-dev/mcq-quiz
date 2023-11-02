@@ -1,19 +1,20 @@
+import ProgressBar from "./ui/ProgessBar";
+
 export default function CompletedPage({
   score,
   totalScore,
+  timeTaken,
 }: {
   score: number;
   totalScore: number;
+  timeTaken: number;
 }) {
-  let color, message;
+  let message;
   if (score / totalScore < 1 / 3) {
-    color = "red";
     message = "You need to work hard";
   } else if (score / totalScore < 2 / 3) {
-    color = "yellow";
     message = "You can do better";
   } else {
-    color = "green";
     message = "You did great";
   }
 
@@ -21,25 +22,23 @@ export default function CompletedPage({
     window.location.reload();
   }
 
+  const minutes = Math.floor(timeTaken / 60000);
+  const seconds = ((timeTaken % 60000) / 1000).toFixed(0);
+
   return (
     <div className="m-auto h-2/3 w-full lg:h-1/2 lg:w-1/2 lg:border border-white text-white p-20 ">
       <div className="text-white flex flex-col justify-between h-full items-center">
         <h1 className="text-3xl">Quiz Completed</h1>
-        {/* create a progress bar */}
-        <div className="h-2 w-full bg-gray-700 rounded-full">
-          <div
-            className="h-full rounded-full transition-all duration-500 ease-in-out"
-            style={{
-              width: `${(score / totalScore) * 100}%`,
-              backgroundColor: color,
-            }}
-          ></div>
-        </div>
+        {/*progress bar */}
+        <ProgressBar progress={score / totalScore} />
         <h2 className="text-2xl flex flex-col items-center gap-5">
           <span>
             Score : {score}/{totalScore}
           </span>
           <span>{message}</span>
+          <span>
+            Time Taken : {minutes} : {seconds} seconds
+          </span>
         </h2>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/3 text-xl flex justify-center items-center "
