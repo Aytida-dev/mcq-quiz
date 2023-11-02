@@ -1,14 +1,11 @@
 export default function ProgressBar({ progress }: { progress: number }) {
-  let color, message;
+  let color;
   if (progress < 1 / 3) {
     color = "red";
-    message = "You need to work hard";
   } else if (progress < 2 / 3) {
     color = "yellow";
-    message = "You can do better";
   } else {
     color = "green";
-    message = "You did great";
   }
   return (
     <div className="h-4 w-full bg-gray-700 rounded-full">
