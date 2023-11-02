@@ -5,13 +5,16 @@ export default function CompletedPage({
   score: number;
   totalScore: number;
 }) {
-  let color;
+  let color, message;
   if (score / totalScore < 1 / 3) {
     color = "red";
+    message = "You need to work hard";
   } else if (score / totalScore < 2 / 3) {
     color = "yellow";
+    message = "You can do better";
   } else {
     color = "green";
+    message = "You did great";
   }
 
   function handleRestart() {
@@ -32,8 +35,11 @@ export default function CompletedPage({
             }}
           ></div>
         </div>
-        <h2 className="text-2xl">
-          Score : {score}/{totalScore}
+        <h2 className="text-2xl flex flex-col items-center gap-5">
+          <span>
+            Score : {score}/{totalScore}
+          </span>
+          <span>{message}</span>
         </h2>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/3 text-xl flex justify-center items-center "
